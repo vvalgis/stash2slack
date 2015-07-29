@@ -45,6 +45,26 @@ public class SlackPayload {
 
     private boolean link_names;
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    private String username;
+
+    public String getIcon_emoji() {
+        return icon_emoji;
+    }
+
+    public void setIcon_emoji(String icon_emoji) {
+        this.icon_emoji = icon_emoji;
+    }
+
+    private String icon_emoji;
+
     private List<SlackAttachment> attachments = new LinkedList<SlackAttachment>();
 
     public void addAttachment(SlackAttachment slackAttachment) {

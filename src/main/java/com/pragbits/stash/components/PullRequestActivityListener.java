@@ -69,6 +69,9 @@ public class PullRequestActivityListener {
             String userName = event.getUser() != null ? event.getUser().getDisplayName() : "unknown user";
             String activity = event.getActivity().getAction().name();
             String avatar = event.getUser() != null ? avatarService.getUrlForPerson(event.getUser(), avatarRequest) : "";
+            String botName  = "PHP Master";
+            String botEmoji = ":poop:";
+
 
             // Ignore RESCOPED PR events
             if (activity.equalsIgnoreCase("RESCOPED") && event instanceof PullRequestRescopeActivityEvent) {
@@ -106,7 +109,7 @@ public class PullRequestActivityListener {
             if (activity.equalsIgnoreCase("COMMENTED") && !slackSettings.isSlackNotificationsCommentedEnabled()) {
                 return;
             }
-            
+
             String url = navBuilder
                     .project(projectName)
                     .repo(repoName)
@@ -116,6 +119,7 @@ public class PullRequestActivityListener {
 
             SlackPayload payload = new SlackPayload();
             payload.setMrkdwn(true);
+
             payload.setLinkNames(true);
 
             SlackAttachment attachment = new SlackAttachment();
@@ -265,6 +269,8 @@ public class PullRequestActivityListener {
             attachment.addField(repoField);
 
             payload.addAttachment(attachment);
+            payload.setUsername(botName);
+            payload.setIcon_emoji(botEmoji);
 
             // slackSettings.getSlackChannelName might be:
             // - empty
